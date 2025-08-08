@@ -1,59 +1,41 @@
 #!/usr/bin/env bash
 set -euo pipefail
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Wait for MySQL
-if [ -n "${DB_HOST:-}" ]; then
-  echo "Waiting for MySQL at ${DB_HOST:-mysql}:${DB_PORT:-3306}..."
-  until mysqladmin ping -h"${DB_HOST:-mysql}" -P"${DB_PORT:-3306}" -u"${DB_USERNAME:-root}" -p"${DB_PASSWORD:-root}" --silent; do
-    sleep 1
-  done
-fi
+echo "Generating .env from environment variables..."
+truncate -s 0 .env || true
 
-# Copy default .env if missing
-if [ ! -f .env ]; then
-  if [ -f .env.example ]; then
-    echo "Creating .env from .env.example"
-    cp .env.example .env || true
-  else
-    echo "Creating minimal .env"
-    cat > .env <<'EOF'
-APP_NAME=Laravel
-APP_ENV=local
-APP_KEY=
-APP_DEBUG=true
-APP_URL=http://localhost:8000
-LOG_CHANNEL=stack
-LOG_LEVEL=debug
+append() { echo "$1" >> .env; }
 
-DB_CONNECTION=mysql
-DB_HOST=${DB_HOST}
-DB_PORT=${DB_PORT}
-DB_DATABASE=${DB_DATABASE}
-DB_USERNAME=${DB_USERNAME}
-DB_PASSWORD=${DB_PASSWORD}
+append "APP_NAME=${APP_NAME:-Laravel}"
+append "APP_ENV=${APP_ENV:-local}"
+append "APP_KEY=${APP_KEY:-}"
+append "APP_DEBUG=${APP_DEBUG:-true}"
+append "APP_URL=${APP_URL:-http://localhost:8000}"
+append "LOG_CHANNEL=${LOG_CHANNEL:-stack}"
+append "LOG_LEVEL=${LOG_LEVEL:-debug}"
 
-REDIS_CLIENT=phpredis
-REDIS_HOST=${REDIS_HOST}
-REDIS_PORT=${REDIS_PORT}
+append "DB_CONNECTION=${DB_CONNECTION:-mysql}"
+append "DB_HOST=${DB_HOST:-mysql}"
+append "DB_PORT=${DB_PORT:-3306}"
+append "DB_DATABASE=${DB_DATABASE:-app}"
+append "DB_USERNAME=${DB_USERNAME:-app}"
+append "DB_PASSWORD=${DB_PASSWORD:-secret}"
 
-CACHE_DRIVER=${CACHE_DRIVER}
-CACHE_STORE=${CACHE_STORE}
-QUEUE_CONNECTION=${QUEUE_CONNECTION}
-SESSION_DRIVER=${SESSION_DRIVER}
-EOF
-  fi
-fi
+append "REDIS_CLIENT=${REDIS_CLIENT:-phpredis}"
+append "REDIS_HOST=${REDIS_HOST:-redis}"
+append "REDIS_PORT=${REDIS_PORT:-6379}"
+append "CACHE_DRIVER=${CACHE_DRIVER:-file}"
+append "CACHE_STORE=${CACHE_STORE:-file}"
+append "QUEUE_CONNECTION=${QUEUE_CONNECTION:-sync}"
+append "SESSION_DRIVER=${SESSION_DRIVER:-file}"
 
-# Ensure app key
-if ! grep -q "^APP_KEY=" .env || grep -q "^APP_KEY=$" .env; then
+append "VITE_APP_NAME=${VITE_APP_NAME:-${APP_NAME:-Laravel}}"
+
+if grep -qE '^APP_KEY=$|^APP_KEY=""$' .env; then
   php artisan key:generate --force
 fi
 
-# Run migrations (best-effort for POC)
-php artisan migrate --force || true
-
-# Storage link for local
-php artisan storage:link || true
-
-# Start Laravel dev server
 exec php artisan serve --host=0.0.0.0 --port=8000
+
