@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'microservice' => [
+        'url' => env('MICROSERVICE_URL', 'http://localhost:3000'),
+    ],
+
 ];

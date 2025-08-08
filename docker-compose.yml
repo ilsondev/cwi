@@ -24,11 +24,23 @@ services:
       CACHE_STORE: redis
       QUEUE_CONNECTION: sync
       SESSION_DRIVER: redis
+      MICROSERVICE_URL: http://microservice:3000
     depends_on:
       mysql:
         condition: service_healthy
       redis:
         condition: service_healthy
+
+  microservice:
+    build:
+      context: ./microservice
+      dockerfile: Dockerfile
+    container_name: cwi-microservice
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: 3000
 
   mysql:
     image: mysql:8.0
