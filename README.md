@@ -29,7 +29,7 @@ Aplicação Laravel com CRUD de usuários e integração com microsserviço Node
 
 ### 1. Clone o repositório
 ```bash
-git clone <repository-url>
+git clone https://github.com/ilsondev/cwi
 cd cwi_test
 ```
 
