@@ -174,6 +174,22 @@ cwi_test/
 
 ## Testando a Aplicação
 
+### Opção 1: Usando Postman (Recomendado)
+
+**Arquivos Postman incluídos:**
+- `postman_collection.json` - Coleção completa com todos os endpoints
+- `postman_environment.json` - Ambiente de desenvolvimento
+- `POSTMAN_GUIDE.md` - Guia detalhado de como usar
+
+**Como importar:**
+1. Abra o Postman
+2. Importe o arquivo `postman_collection.json`
+3. Importe o arquivo `postman_environment.json`
+4. Selecione o ambiente "CWI Test - Development"
+5. Execute os testes na ordem sugerida
+
+### Opção 2: Linha de Comando (cURL)
+
 ### 1. Verificar se os serviços estão funcionando
 ```bash
 # Health check Laravel

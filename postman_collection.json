@@ -1,0 +1,675 @@
+{
+	"info": {
+		"_postman_id": "cwi-test-collection",
+		"name": "CWI Test - Laravel API",
+		"description": "Coleção de endpoints para testar a aplicação Laravel com CRUD de usuários e integração com microsserviço Node.js",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Checks",
+			"item": [
+				{
+					"name": "Laravel Health Check",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"health"
+							]
+						},
+						"description": "Verifica se a aplicação Laravel está funcionando"
+					},
+					"response": []
+				},
+				{
+					"name": "Microservice Health Check (Direct)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{microservice_url}}/health",
+							"host": [
+								"{{microservice_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Verifica se o microsserviço Node.js está funcionando diretamente"
+					},
+					"response": []
+				},
+				{
+					"name": "Microservice Health Check (via Laravel)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/microservice/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"microservice",
+								"health"
+							]
+						},
+						"description": "Verifica se o microsserviço está funcionando através do Laravel"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users CRUD",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Lista todos os usuários cadastrados"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"João Silva\",\n    \"email\": \"joao.silva@example.com\",\n    \"password\": \"12345678\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "Cria um novo usuário"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "Busca um usuário específico por ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"João Santos\",\n    \"email\": \"joao.santos@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "Atualiza os dados de um usuário existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"newpassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "Atualiza apenas a senha de um usuário"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "Remove um usuário do sistema"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Microservice Integration",
+			"item": [
+				{
+					"name": "Get Services from Microservice",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/microservice/services",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"microservice",
+								"services"
+							]
+						},
+						"description": "Busca lista de serviços do microsserviço através do Laravel"
+					},
+					"response": []
+				},
+				{
+					"name": "Validate User via Microservice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"teste@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/microservice/validate-user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"microservice",
+								"validate-user"
+							]
+						},
+						"description": "Valida um email através do microsserviço"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Direct Microservice Calls",
+			"item": [
+				{
+					"name": "Get Services (Direct)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{microservice_url}}/services",
+							"host": [
+								"{{microservice_url}}"
+							],
+							"path": [
+								"services"
+							]
+						},
+						"description": "Chama diretamente o microsserviço para buscar serviços"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service by ID (Direct)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{microservice_url}}/services/1",
+							"host": [
+								"{{microservice_url}}"
+							],
+							"path": [
+								"services",
+								"1"
+							]
+						},
+						"description": "Busca um serviço específico por ID diretamente no microsserviço"
+					},
+					"response": []
+				},
+				{
+					"name": "Validate User (Direct)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"teste@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{microservice_url}}/validate-user",
+							"host": [
+								"{{microservice_url}}"
+							],
+							"path": [
+								"validate-user"
+							]
+						},
+						"description": "Chama diretamente o microsserviço para validar um usuário"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Scenarios",
+			"item": [
+				{
+					"name": "Create Multiple Users",
+					"item": [
+						{
+							"name": "Create User 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Maria Silva\",\n    \"email\": \"maria.silva@example.com\",\n    \"password\": \"senha123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							}
+						},
+						{
+							"name": "Create User 2",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Pedro Santos\",\n    \"email\": \"pedro.santos@example.com\",\n    \"password\": \"minhasenha456\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							}
+						},
+						{
+							"name": "Create User 3",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Ana Costa\",\n    \"email\": \"ana.costa@example.com\",\n    \"password\": \"password789\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "Error Test Cases",
+					"item": [
+						{
+							"name": "Create User - Invalid Email",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Teste Invalid\",\n    \"email\": \"email-invalido\",\n    \"password\": \"12345678\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								},
+								"description": "Testa criação de usuário com email inválido (deve retornar erro 422)"
+							}
+						},
+						{
+							"name": "Create User - Short Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Teste Password\",\n    \"email\": \"teste.password@example.com\",\n    \"password\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								},
+								"description": "Testa criação de usuário com senha muito curta (deve retornar erro 422)"
+							}
+						},
+						{
+							"name": "Get Non-existent User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/users/999999",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"999999"
+									]
+								},
+								"description": "Testa busca de usuário inexistente (deve retornar erro 404)"
+							}
+						},
+						{
+							"name": "Update Non-existent User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Nome Atualizado\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/999999",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"999999"
+									]
+								},
+								"description": "Testa atualização de usuário inexistente (deve retornar erro 404)"
+							}
+						},
+						{
+							"name": "Delete Non-existent User",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/users/999999",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"999999"
+									]
+								},
+								"description": "Testa remoção de usuário inexistente (deve retornar erro 404)"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "microservice_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "1",
+			"type": "string",
+			"description": "ID do usuário para testes (atualize após criar um usuário)"
+		}
+	]
+}
