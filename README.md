@@ -19,7 +19,7 @@ Aplicação Laravel com CRUD de usuários e integração com microsserviço Node
 
 ## Tecnologias
 
-- **Backend**: Laravel 11, PHP 8.3
+- **Backend**: Laravel 12, PHP 8.3
 - **Microsserviço**: Node.js, Express.js
 - **Banco de Dados**: MySQL 8.0
 - **Cache**: Redis
