@@ -91,7 +91,7 @@ Execute os testes na pasta **Error Test Cases** para verificar:
 ### Executando Todos os Testes
 
 1. Clique com o botão direito na coleção **CWI Test - Laravel API**
-2. Selecione **Run collection**
+2. Selecione **Run**
 3. Configure os parâmetros desejados
 4. Clique em **Run CWI Test - Laravel API**
 
